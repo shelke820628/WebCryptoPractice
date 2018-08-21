@@ -10,8 +10,8 @@ async function encryptDataSaveKey() {
     	{
         	// this always prints something like "A21ixmVqdCBccnOheQJ1cmNlcl0="
         	// I would expect it to print different string on each reload!
-        	console.log(buf2hex(keydata));
-		console.log(keydata);
+        	console.log("PublicKey", buf2hex(keydata));
+		console.log("PublicKey", keydata);
     	})
 
 	window.crypto.subtle.exportKey(
@@ -21,8 +21,8 @@ async function encryptDataSaveKey() {
     	{
         	// this always prints something like "A21ixmVqdCBccnOheQJ1cmNlcl0="
         	// I would expect it to print different string on each reload!
-        	console.log(buf2hex(keydata));
-		console.log(keydata);
+        	console.log("privateKey", buf2hex(keydata));
+		console.log("privateKey", keydata);
     	})
 	alert("OK");
 
