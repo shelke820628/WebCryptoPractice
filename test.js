@@ -100,6 +100,8 @@ function loadKeyDecryptData() {
         	// I would expect it to print different string on each reload!
         	console.log("PublicKey", buf2hex(keydata));
 			console.log("PublicKey", keydata);
+			alert("PublicKey");
+			alert(buf2hex(keydata));
     	}).catch(function(err){
     		console.error(err);
 	})
@@ -111,8 +113,10 @@ function loadKeyDecryptData() {
     	{
         	// this always prints something like "A21ixmVqdCBccnOheQJ1cmNlcl0="
         	// I would expect it to print different string on each reload!
-        	console.log("privateKey", buf2hex(keydata));
-			console.log("privateKey", keydata);
+        	console.log("PrivateKey", buf2hex(keydata));
+			console.log("PrivateKey", keydata);
+			alert("PrivateKey");
+			alert(buf2hex(keydata));
     	}).catch(function(err){
     		console.error(err);
 	})
