@@ -99,7 +99,7 @@ function loadKeyDecryptData() {
         	// this always prints something like "A21ixmVqdCBccnOheQJ1cmNlcl0="
         	// I would expect it to print different string on each reload!
         	console.log("PublicKey", buf2hex(keydata));
-		console.log("PublicKey", keydata);
+			console.log("PublicKey", keydata);
     	}).catch(function(err){
     		console.error(err);
 	})
