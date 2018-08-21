@@ -112,17 +112,19 @@ function loadKeyDecryptData() {
         	// this always prints something like "A21ixmVqdCBccnOheQJ1cmNlcl0="
         	// I would expect it to print different string on each reload!
         	console.log("privateKey", buf2hex(keydata));
-		console.log("privateKey", keydata);
+			console.log("privateKey", keydata);
     	}).catch(function(err){
     		console.error(err);
 	})
 
-	alert("OK");
       var encrypted = getData.result.encrypted;
 			var data = await decrypt(encrypted, keys);
 			console.log("decrypted data", data);
 	   };
 	})
+
+	console.log("privateKey localStorage", localStorage.getItem('PrivateKey'));
+	console.log("PublicKey localStorage", localStorage.getItem('PublicKey'));
 }
 
 function callOnStore(fn_) {
