@@ -57,7 +57,7 @@ function loadKeyDecryptData() {
 	})
 
 	window.crypto.subtle.exportKey(
-       	"jwk", //can be "jwk" (public or private), "spki" (public only), or "pkcs8" (private only)
+       	"pkcs8", //can be "jwk" (public or private), "spki" (public only), or "pkcs8" (private only)
        	keys.privateKey //can be a publicKey or privateKey, as long as extractable was true
     	).then(function(keydata)
     	{
@@ -134,7 +134,7 @@ function makeKeys() {
         publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
         hash: {name: "SHA-256"}, //can be "SHA-1", "SHA-256", "SHA-384", or "SHA-512"
     },
-    false, //whether the key is extractable (i.e. can be used in exportKey)
+    true, //whether the key is extractable (i.e. can be used in exportKey)
     ["encrypt", "decrypt"] //must be ["encrypt", "decrypt"] or ["wrapKey", "unwrapKey"]
    )
 }
