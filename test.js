@@ -2,12 +2,28 @@ async function encryptDataSaveKey() {
 	var data = await makeData();
 	console.log("generated data", data);
 	var keys = await makeKeys()
- 	var privateKeyResult = window.crypto.subtle.exportKey("pkcs8", keys.privateKey);
-	var publicKeyResult = window.crypto.subtle.exportKey("spki", keys.publicKey);
 
-	console.log("PrivateKey", buf2hex(privateKeyResult));
-	console.log("publicKey", buf2hex(publicKeyResult));
-alert("OK");
+ 	window.crypto.subtle.exportKey(
+       	"spki", //can be "jwk" (public or private), "spki" (public only), or "pkcs8" (private only)
+       	keys.publicKey //can be a publicKey or privateKey, as long as extractable was true
+    	).then(function(keydata)
+    	{
+        	// this always prints something like "A21ixmVqdCBccnOheQJ1cmNlcl0="
+        	// I would expect it to print different string on each reload!
+        	console.log(buf2hex(keydata));
+    	})
+
+	window.crypto.subtle.exportKey(
+       	"pkcs8", //can be "jwk" (public or private), "spki" (public only), or "pkcs8" (private only)
+       	keys.privateKey //can be a publicKey or privateKey, as long as extractable was true
+    	).then(function(keydata)
+    	{
+        	// this always prints something like "A21ixmVqdCBccnOheQJ1cmNlcl0="
+        	// I would expect it to print different string on each reload!
+        	console.log(buf2hex(keydata));
+    	})
+	alert("OK");
+
 	var encrypted = await encrypt(data, keys);
 	callOnStore(function (store) {
 		store.put({id: 1, keys: keys, encrypted: encrypted});
@@ -20,12 +36,26 @@ function loadKeyDecryptData() {
     getData.onsuccess = async function() {
     	var keys = getData.result.keys;
 	
-	var privateKeyResult = window.crypto.subtle.exportKey("pkcs8", keys.privateKey);
-	var publicKeyResult = window.crypto.subtle.exportKey("spki", keys.publicKey);
+	window.crypto.subtle.exportKey(
+       	"spki", //can be "jwk" (public or private), "spki" (public only), or "pkcs8" (private only)
+       	keys.publicKey //can be a publicKey or privateKey, as long as extractable was true
+    	).then(function(keydata)
+    	{
+        	// this always prints something like "A21ixmVqdCBccnOheQJ1cmNlcl0="
+        	// I would expect it to print different string on each reload!
+        	console.log(buf2hex(keydata));
+    	})
 
-	console.log("PrivateKey", privateKeyResult);
-	console.log("publicKey", publicKeyResult);
-alert("OK");
+	window.crypto.subtle.exportKey(
+       	"pkcs8", //can be "jwk" (public or private), "spki" (public only), or "pkcs8" (private only)
+       	keys.privateKey //can be a publicKey or privateKey, as long as extractable was true
+    	).then(function(keydata)
+    	{
+        	// this always prints something like "A21ixmVqdCBccnOheQJ1cmNlcl0="
+        	// I would expect it to print different string on each reload!
+        	console.log(buf2hex(keydata));
+    	})
+	alert("OK");
       var encrypted = getData.result.encrypted;
 			var data = await decrypt(encrypted, keys);
 			console.log("decrypted data", data);
