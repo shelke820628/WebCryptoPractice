@@ -12,7 +12,9 @@ async function encryptDataSaveKey() {
         	// I would expect it to print different string on each reload!
         	console.log("PublicKey", buf2hex(keydata));
 		console.log("PublicKey", keydata);
-    	})
+    	}).catch(function(err){
+    		console.error(err);
+	})
 
 	window.crypto.subtle.exportKey(
        	"pkcs8", //can be "jwk" (public or private), "spki" (public only), or "pkcs8" (private only)
@@ -23,7 +25,10 @@ async function encryptDataSaveKey() {
         	// I would expect it to print different string on each reload!
         	console.log("privateKey", buf2hex(keydata));
 		console.log("privateKey", keydata);
-    	})
+    	}).catch(function(err){
+    		console.error(err);
+	})
+
 	alert("OK");
 
 	var encrypted = await encrypt(data, keys);
@@ -45,18 +50,25 @@ function loadKeyDecryptData() {
     	{
         	// this always prints something like "A21ixmVqdCBccnOheQJ1cmNlcl0="
         	// I would expect it to print different string on each reload!
-        	console.log(buf2hex(keydata));
-    	})
+        	console.log("PublicKey", buf2hex(keydata));
+		console.log("PublicKey", keydata);
+    	}).catch(function(err){
+    		console.error(err);
+	})
 
 	window.crypto.subtle.exportKey(
-       	"pkcs8", //can be "jwk" (public or private), "spki" (public only), or "pkcs8" (private only)
+       	"jwk", //can be "jwk" (public or private), "spki" (public only), or "pkcs8" (private only)
        	keys.privateKey //can be a publicKey or privateKey, as long as extractable was true
     	).then(function(keydata)
     	{
         	// this always prints something like "A21ixmVqdCBccnOheQJ1cmNlcl0="
         	// I would expect it to print different string on each reload!
-        	console.log(buf2hex(keydata));
-    	})
+        	console.log("privateKey", buf2hex(keydata));
+		console.log("privateKey", keydata);
+    	}).catch(function(err){
+    		console.error(err);
+	})
+
 	alert("OK");
       var encrypted = getData.result.encrypted;
 			var data = await decrypt(encrypted, keys);
