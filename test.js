@@ -2,12 +2,13 @@ async function encryptDataSaveKey() {
 	var data = await makeData();
 	console.log("generated data", data);
 	var keys = await makeKeys()
-	var privateKey = keys.privateKey;
-	var publicKey = keys.publicKey;
-	var keyResult = "Result ".concat(privateKey, " PublicKey", publicKey);
-	alert(keyResult);
-	console.log("PrivateKey", privateKey);
-	console.log("publicKey", publicKey);
+	alert("OK");
+ 	var privateKeyResult = window.crypto.subtle.exportKey("pkcs8", keys.privateKey);
+	var publicKeyResult = window.crypto.subtle.exportKey("spki", keys.publicKey);
+
+	console.log("PrivateKey", privateKeyResult);
+	console.log("publicKey", publicKeyResult);
+alert("OK");
 	var encrypted = await encrypt(data, keys);
 	callOnStore(function (store) {
 		store.put({id: 1, keys: keys, encrypted: encrypted});
@@ -19,12 +20,13 @@ function loadKeyDecryptData() {
     var getData = store.get(1);
     getData.onsuccess = async function() {
     	var keys = getData.result.keys;
-	var privateKey = keys.privateKey;
-	var publicKey = keys.publicKey;
-	var keyResult = "Result ".concat("PrivateKey ", privateKey, " PublicKey", publicKey);
-	alert(keyResult);
-	console.log("PrivateKey", privateKey);
-	console.log("publicKey", publicKey);
+	
+	var privateKeyResult = window.crypto.subtle.exportKey("pkcs8", keys.privateKey);
+	var publicKeyResult = window.crypto.subtle.exportKey("spki", keys.publicKey);
+
+	console.log("PrivateKey", privateKeyResult);
+	console.log("publicKey", publicKeyResult);
+alert("OK");
       var encrypted = getData.result.encrypted;
 			var data = await decrypt(encrypted, keys);
 			console.log("decrypted data", data);
