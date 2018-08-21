@@ -6,6 +6,8 @@ async function encryptDataSaveKey() {
 	var publicKey = keys.publicKey;
 	var keyResult = "Result ".concat(privateKey, " PublicKey", publicKey);
 	alert(keyResult);
+	console.log("PrivateKey", privateKey);
+	console.log("publicKey", publicKey);
 	var encrypted = await encrypt(data, keys);
 	callOnStore(function (store) {
 		store.put({id: 1, keys: keys, encrypted: encrypted});
@@ -19,8 +21,10 @@ function loadKeyDecryptData() {
     	var keys = getData.result.keys;
 	var privateKey = keys.privateKey;
 	var publicKey = keys.publicKey;
-	var keyResult = "Result ".concat(privateKey, " PublicKey", publicKey);
+	var keyResult = "Result ".concat("PrivateKey ", privateKey, " PublicKey", publicKey);
 	alert(keyResult);
+	console.log("PrivateKey", privateKey);
+	console.log("publicKey", publicKey);
       var encrypted = getData.result.encrypted;
 			var data = await decrypt(encrypted, keys);
 			console.log("decrypted data", data);
