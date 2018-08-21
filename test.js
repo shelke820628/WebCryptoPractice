@@ -2,12 +2,11 @@ async function encryptDataSaveKey() {
 	var data = await makeData();
 	console.log("generated data", data);
 	var keys = await makeKeys()
-	alert("OK");
  	var privateKeyResult = window.crypto.subtle.exportKey("pkcs8", keys.privateKey);
 	var publicKeyResult = window.crypto.subtle.exportKey("spki", keys.publicKey);
 
-	console.log("PrivateKey", privateKeyResult);
-	console.log("publicKey", publicKeyResult);
+	console.log("PrivateKey", buf2hex(privateKeyResult));
+	console.log("publicKey", buf2hex(publicKeyResult));
 alert("OK");
 	var encrypted = await encrypt(data, keys);
 	callOnStore(function (store) {
@@ -117,4 +116,8 @@ async function decrypt(data, keys) {
 	    keys.privateKey, //from generateKey or importKey above
 	    data //ArrayBuffer of the data
 	));
+}
+
+function buf2hex(buffer) { // buffer is an ArrayBuffer
+  return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
 }
